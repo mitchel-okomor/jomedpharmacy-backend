@@ -5,9 +5,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const customersApi = require('./api/customers'); 
-const productsApi = require('./api/products');
-const usersApi = require('./api/users');
+const api = require('./api/api');
 
 // Set up the express app
 const app = express();
@@ -34,16 +32,11 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Bundle API routes.
-app.use('/customer', customersApi);
-app.use('/product', productsApi);
-app.use('/user', usersApi);
+app.use('/', api);
+
 
 app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'), function(err) {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
+res.status(200).send('under construction');
 });
 const server = http.createServer(app);
 server.listen(4000);
