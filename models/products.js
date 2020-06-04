@@ -18,11 +18,13 @@ get product (){
 }
 
 async addOne(){
-const queryString = `INSERT INTO products (name, price, category) values ('${this.name}', '${this.price}', '${this.category}')`;
+    console.log("request recieved");
+const queryString = `INSERT INTO product (name, price, category) values ('${this.name}', '${this.price}', '${this.category}')`;
 await db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
     }
+
     else{return result}
 });
 
@@ -30,7 +32,7 @@ await db.query(queryString, (err, result)=>{
 }
 
 async getOne(id){
-const queryString = `SELECT * FROM products WHERE id = ${id}`;
+const queryString = `SELECT * FROM product WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
@@ -41,7 +43,7 @@ db.query(queryString, (err, result)=>{
 
 
 async getAll(){
-    const queryString = "select * FROM products ORDER BY id";
+    const queryString = "select * FROM product ORDER BY id";
     await db.query(queryString, (err, result) =>{
         if(err){
             console.log(err);
