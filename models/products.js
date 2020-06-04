@@ -18,6 +18,7 @@ get product (){
 }
 
  addOne(callback){
+     
     console.log("request recieved");
 const queryString = `INSERT INTO product (name, price, category) values ('${this.name}', '${this.price}', '${this.category}')`;
 db.query(queryString, (err, result)=>{
@@ -29,38 +30,52 @@ callback(result);
 
 }
 
-getOne(id){
+getOne(id, callback){
 const queryString = `SELECT * FROM product WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
     }
-    else{return result}
+    else{
+    callback(result);
+    }
 });
 }
 
 
-getAll(){
-    const queryString = "select * FROM product ORDER BY id";
- db.query(queryString, (err, result) =>{
-        if(err){
-            console.log(err);
-        }
-        else{return result}
-    })
+getAll(callback){
+    const queryString = `SELECT * FROM product`;
+db.query(queryString, (err, result)=>{
+    if(err){
+       throw err;
+    }
+    else{
+    callback(result);
+    }
+});
 
 }
 
-updateOne(id){
-const queryString = `UPDATE product SET name ='${this.name}', price='${this.price}', category='${this.category}'`;
+updateOne(id, callback){
+const queryString = `UPDATE product SET name ='${this.name}', price='${this.price}', category='${this.category}' WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
-        console.log(err);
+        throw err;
     }
-    else{
-        return result;
-    }
-})    
+callback(result);
+});    
+}
+
+deleteOne(id, callback){
+    const queryString = `DELETE FROM product WHERE id = ${id}`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+           throw err;
+        }
+        else{
+        callback(result);
+        }
+    });
 }
 
 }
