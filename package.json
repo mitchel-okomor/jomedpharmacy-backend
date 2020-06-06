@@ -4,7 +4,7 @@
   "description": "NodeJS Backend to provide API for Jomed Pharmacy Frontend",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "lint": "eslint **/*.js",
     "dev": "nodemon app.js"
   },
