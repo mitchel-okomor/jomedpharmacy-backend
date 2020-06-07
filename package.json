@@ -4,8 +4,14 @@
   "description": "NodeJS Backend to provide API for Jomed Pharmacy Frontend",
   "main": "app.js",
   "scripts": {
+<<<<<<< HEAD
     "lint": "eslint",
     "test": "mocha"
+=======
+    "test": "mocha",
+    "lint": "eslint **/*.js",
+    "dev": "nodemon app.js"
+>>>>>>> products
   },
   "author": "Mitchel Okomer",
   "license": "ISC",
