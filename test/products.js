@@ -34,6 +34,8 @@ let base_url = 'http://localhost:4000/'
                 return console.error('Error:', error);
               }
               assert.equal(response.statusCode, 200);
+              assert.equal(typeof(response.data) , "object");
+
             done();
         });
  
