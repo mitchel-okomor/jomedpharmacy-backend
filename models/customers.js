@@ -5,7 +5,7 @@ class Customer {
         this.name = name;
         this.number = number;
         this.address = address;
-        this.emial = email;
+        this.email = email;
     }
 
 set customer (customer){
@@ -22,7 +22,7 @@ get customer (){
  addOne(callback){
      
     console.log("request recieved");
-const queryString = `INSERT INTO customer (name, number, address) values ('${this.name}', '${this.number}', '${this.address}','${this.email}' )`;
+const queryString = `INSERT INTO customer (name, number, address, email) values ('${this.name}', '${this.number}', '${this.address}','${this.email}' )`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
@@ -59,7 +59,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE customer SET name ='${this.name}', price='${this.number}', address='${this.address}', email='${this.email}' WHERE id = ${id}`;
+const queryString = `UPDATE customer SET name ='${this.name}', number='${this.number}', address='${this.address}', email='${this.email}' WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;
