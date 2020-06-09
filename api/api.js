@@ -24,7 +24,7 @@ router.get('/customer/:id', customers.getCustomer);
 // get all customers
 router.get('/customers', customers.getAllCustomers);
 // create a customer
-router.post('/customers', customers.addCustomer);
+router.post('/customer', customers.addCustomer);
 // update a customer record
 router.patch('/customer/:id', customers.updateCustomer);
 // delete a customer record
