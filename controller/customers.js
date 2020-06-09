@@ -6,9 +6,10 @@ const customers = {
     const name = req.body.name.trim();
     const number = req.body.number.trim();
     const address = req.body.address.trim();
+    const email = req.body.email.trim();
 
     //create a new instance of customer
-    const newCustomer = new Customer(name, number, address);
+    const newCustomer = new Customer(name, number, address, email);
 
     try {
       newCustomer.addOne((result) => {
@@ -101,9 +102,10 @@ updateCustomer: (req, res)=>{
     const name = req.body.name.trim();
     const number = req.body.number.trim();
     const address = req.body.address.trim();
+    const email = req.body.email.trim();
 
     //create a new instance of customer
-    const newCustomer = new Customer(name, number, address);    
+    const newCustomer = new Customer(name, number, address, email);    
     try {
       newCustomer.updateOne(req.params.id, (result) => {
         if (result.affectedRows > 0) {
