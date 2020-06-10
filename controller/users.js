@@ -32,7 +32,7 @@ const user = {
     }
   },
 
-  getUserr: (req, res) => {
+  getUser: (req, res) => {
     console.log(req.params.id);
     const user = new User();
 
