@@ -4,7 +4,10 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 const api = require('./api/api');
+
+
 
 // Set up the express app
 const app = express();
@@ -29,6 +32,7 @@ app.use(bodyParser.json());
 // serve static files
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(passport.initialize());
 
 // Bundle API routes.
 app.use('/', api);

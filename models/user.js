@@ -1,12 +1,13 @@
 const db = require('../services/db');
 
 class User {
-    constructor(fName, lName, number, address, email){
+    constructor(fName, lName, number, address, email, password){
         this.fName = fName;
         this.lName  = lName;
         this.number = number;
         this.address = address;
         this.email = email;
+        this.password = password;
     }
 
 set user (user){
@@ -15,33 +16,35 @@ set user (user){
     this.number =user.number;
     this.address =user.address;
     this.email = user.email;
+    this.password = user.password;
 }
 
 get user (){
-    return ([this.fName, this.lName, this.number, this.address, this.emial]);
+    return ([this.fName, this.lName, this.number, this.address, this.emial, this.password]);
 }
 
- addOne(callback){
-     
+ addOne(callback){   
     console.log("request recieved");
-const queryString = `INSERT INTO user (firstname, lastname number, address, email) values ('${this.fName}', '${this.lName}', '${this.number}', '${this.address}','${this.email}' )`;
+const queryString = `INSERT INTO user (firstname, lastname, number, address, email, password) values ('${this.fName}', '${this.lName}', '${this.number}', '${this.address}','${this.email}','${this.password}' )`;
 db.query(queryString, (err, result)=>{
     if(err){
-        console.log(err);
+        throw err;
     }
-callback(result);
+    else{ 
+  callback(result.insertId);  }
 });
 
 }
 
 getOne(email, callback){
-const queryString = `SELECT * FROM user WHERE email = ${email}`;
+const queryString = `SELECT * FROM user WHERE email = '${email}'`;
 db.query(queryString, (err, result)=>{
     if(err){
-        console.log(err);
+        throw err;
     }
     else{
-    callback(result);
+            console.log(result[0]);
+         callback(result[0]);    
     }
 });
 }

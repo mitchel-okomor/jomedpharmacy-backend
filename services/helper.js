@@ -1,6 +1,5 @@
 const helper = {};
 helper.populateParams = (req, res, next) =>{
-    console.log(req.body.fName);
 req.params.fName = req.body.fname  ;
 req.params.lName =  req.body.lName ;
 req.params.number= req.body.number  ;
