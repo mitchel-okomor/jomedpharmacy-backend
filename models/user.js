@@ -43,7 +43,6 @@ db.query(queryString, (err, result)=>{
         throw err;
     }
     else{
-            console.log(result[0]);
          callback(result[0]);    
     }
 });

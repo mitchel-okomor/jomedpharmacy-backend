@@ -21,13 +21,14 @@ login: (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      console.log(info);
+      console.log("login No user: "+info);
       res.send(info);
     } else {
-      res.send(info);
+  res.send({info, user});
     }
   })(req, res, next);
 },
+
 jwt: (req, res, next) => {
   passport.authenticate('jwt', function (err, user, info) {
     if (err) {

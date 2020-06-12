@@ -1,16 +1,16 @@
 const bcrypt = require ('bcrypt-nodejs');
+const jwt = require ('jsonwebtoken');
 const User = require('../models/user');
 const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
+  require('dotenv').config();
+
 
   //register a user
 passport.use('register', new LocalStrategy({usernameField:'email',
 passwordField:'password',
 passReqToCallback : true},
 (req, username, password, done)=> {
-
-
-
 
    //hash password with bcrypt-nodejs
    let salt = bcrypt.genSaltSync(10);
@@ -50,27 +50,41 @@ if(err){
 
    });
 
-
-   
   }
 )
 );
 
 //login a user
 passport.use('login', new LocalStrategy({usernameField:'email',
-passwordField:'password'},
-  function(username, password, done) {
+passwordField:'password',
+passReqToCallback : true},
+  function(req, username, password, done) {
     console.log("Strategy "+username);
       const userObj = new User();
     userObj.getOne(username, function (user) {
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect username or password' });
       }
-      if (user) {
-        console.log("passport strategy "+user);
-        return done(null, false, { message: 'logged in' });
+     else{
+       //compare user imputed password with database password
+        bcrypt.compare (password, user.password,  (error, valid) => {
+          if(error){console.log(error);}
+         else if (!password ||!valid) {
+            return done(null, false, { message: 'Incorrect username or password' });
+          }
+        else{ 
+          const token = jwt.sign ({
+            userId: user.id,
+          },
+        process.env.JWT_KEY,
+          {expiresIn: '24h'}
+        );
+
+            console.log("passport strategy "+user.firstname);
+        return done(null, false, { message: 'logged in', user, token }); 
+        }
+        });
       }
-      return done(null, user);
     });
   }
 )

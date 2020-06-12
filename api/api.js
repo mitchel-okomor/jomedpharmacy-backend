@@ -33,15 +33,17 @@ router.patch('/customer/:id', customers.updateCustomer);
 // delete a customer record
 router.delete('/customer/:id', customers.deleteCustomer);
 
-// get a customer
+// get a user
 router.get('/user/:id', users.getUser);
-// get all customers
+// get all users
 router.get('/users', users.getAllUsers);
-// create a customer
+// create a user
 router.post('/user', helper.populateParams, auth.register);
-// update a customer record
+//login a user
+router.post('/login', helper.populateParams, auth.login);
+// update a user record
 router.patch('/user/:id', users.updateUser);
-// delete a customer record
+// delete a user record
 router.delete('/user/:id', users.deleteUser);
 
 module.exports = router;
