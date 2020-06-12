@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 const products = require('../controller/products');
 const customers = require('../controller/customers');
+const users = require('../controller/users');
 const uplaod = require('../middleware/upload');
+const helper = require('../services/helper');
+const auth = require('../middleware/auth');
 
 
 
@@ -29,4 +32,16 @@ router.post('/customer', customers.addCustomer);
 router.patch('/customer/:id', customers.updateCustomer);
 // delete a customer record
 router.delete('/customer/:id', customers.deleteCustomer);
+
+// get a customer
+router.get('/user/:id', users.getUser);
+// get all customers
+router.get('/users', users.getAllUsers);
+// create a customer
+router.post('/user', helper.populateParams, auth);
+// update a customer record
+router.patch('/user/:id', users.updateUser);
+// delete a customer record
+router.delete('/user/:id', users.deleteUser);
+
 module.exports = router;

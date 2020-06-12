@@ -34,8 +34,8 @@ callback(result);
 
 }
 
-getOne(id, callback){
-const queryString = `SELECT * FROM user WHERE id = ${id}`;
+getOne(email, callback){
+const queryString = `SELECT * FROM user WHERE email = ${email}`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
