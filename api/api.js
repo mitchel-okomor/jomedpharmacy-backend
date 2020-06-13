@@ -36,14 +36,14 @@ router.delete('/customer/:id', customers.deleteCustomer);
 // get a user
 router.get('/user/:id', users.getUser);
 // get all users
-router.get('/users', helper.populateParams, auth.jwt, users.getAllUsers);
+router.get('/users', auth.jwt, users.getAllUsers);
 // create a user
 router.post('/user', helper.populateParams, auth.register);
 //login a user
 router.post('/login', helper.populateParams, auth.login);
 // update a user record
-router.patch('/user/:id', users.updateUser);
+router.patch('/user/:id', auth.jwt, users.updateUser);
 // delete a user record
-router.delete('/user/:id', users.deleteUser);
+router.delete('/user/:id', auth.jwt, users.deleteUser);
 
 module.exports = router;

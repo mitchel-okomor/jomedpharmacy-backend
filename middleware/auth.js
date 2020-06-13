@@ -35,10 +35,8 @@ jwt: (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      console.log(info);
       res.send(info);
     } else {
-      console.log("auth: "+user);
       next();
     }
   })(req, res, next);

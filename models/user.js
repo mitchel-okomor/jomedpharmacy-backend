@@ -47,7 +47,18 @@ db.query(queryString, (err, result)=>{
     }
 });
 }
-
+getById(id, callback){
+    const queryString = `SELECT * FROM user WHERE id = '${id}'`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+            throw err;
+        }
+        else{
+             callback(result[0]);    
+        }
+    });
+    }
+    
 
 getAll(callback){
     const queryString = `SELECT * FROM user`;

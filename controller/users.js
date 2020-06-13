@@ -33,15 +33,14 @@ const user = {
   },
 
   getUser: (req, res) => {
-    console.log(req.params.id);
     const user = new User();
 
     try {
-      user.getOne(req.params.id, (result) => {
-        if (result.length > 0) {
+      user.getById(req.params.id, (user) => {
+        if (user) {
           res.status(200).json({
             status: "success",
-            data: result,
+            data: user,
           });
         } else {
           res.status(501).json({
@@ -56,7 +55,6 @@ const user = {
   },
 
   getAllUsers: (req, res) => {
-    console.log("request now in controller");
     const user = new User();
 
     try {
