@@ -69,6 +69,49 @@ describe('Api endpoints for product', () => {
   });
 
 
+  //get a single product  
+  describe('/update/:id', ()=>{
+
+    it('update a product', (done) => {
+
+      let form ={
+        name : 'multivite 2',
+      price :500,
+      category: 'Multivitamins'
+      }
+        request.patch({url:base_url+'product/'+id, form}, function(error, response, body) {
+          if (error) {
+                return console.error('Error:', error);
+              }
+              console.log(body);
+           expect(response.statusCode).to.equal(200);
+           done();
+      });
+ 
+   });
+    
+  });
+
+
+//delete a product  
+describe('/delete/:id', ()=>{
+
+  it('delete a single product', (done) => {
+
+      request.delete({url:base_url+'product/'+id, }, function(error, response, body) {
+          if (error) {
+              return console.error('Error:', error);
+            }
+            console.log(body);
+            expect(response.statusCode).to.equal(200);
+
+          done();
+      });
+
+ });
+  
+});
+
   });
 });
 
