@@ -21,7 +21,7 @@ get product (){
  addOne(callback){
      
     console.log("request recieved");
-const queryString = `INSERT INTO product (name, price, category) values ('${this.name}', '${this.price}', '${this.category}', '${this.image}')`;
+const queryString = `INSERT INTO product (name, price, category, image_url) values ('${this.name}', '${this.price}', '${this.category}', '${this.image}')`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);

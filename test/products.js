@@ -15,23 +15,20 @@ let base_url = 'http://localhost:4000/';
     category: 'Multivitamins'
     };
       request.post({url:base_url+'product/', form}, function(error, response, body) {
-          if (error) {
+        if (error) {
               return console.error('Error:', error);
             }
             console.log(body);
-         id = JSON.parse(body).data.userId;
+         id = JSON.parse(body).data;
          expect(response.statusCode).to.equal(200);
          done();
     });
  
   }); 
-});
-
-
 
 
 //get all products
-  describe('Api endpoints for product', () => {  
+describe('Api endpoints for product', () => {  
     
   describe('Get /products', ()=>{
 
@@ -73,3 +70,6 @@ let base_url = 'http://localhost:4000/';
 
 
   });
+});
+
+
