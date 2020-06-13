@@ -6,7 +6,7 @@ const products = {
     const name = req.body.name.trim();
     const price = req.body.price.trim();
     const category = req.body.category.trim();
-    const imagePath = req.file.filename; 
+    const imagePath = req.filename? req.file.filename : ''; 
 
     //create a new instance of product
     const newProduct = new Product(name, price, category, imagePath);
