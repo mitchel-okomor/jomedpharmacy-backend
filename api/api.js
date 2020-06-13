@@ -36,7 +36,7 @@ router.delete('/customer/:id', customers.deleteCustomer);
 // get a user
 router.get('/user/:id', users.getUser);
 // get all users
-router.get('/users', users.getAllUsers);
+router.get('/users', helper.populateParams, auth.jwt, users.getAllUsers);
 // create a user
 router.post('/user', helper.populateParams, auth.register);
 //login a user

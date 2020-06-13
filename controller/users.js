@@ -56,6 +56,7 @@ const user = {
   },
 
   getAllUsers: (req, res) => {
+    console.log("request now in controller");
     const user = new User();
 
     try {

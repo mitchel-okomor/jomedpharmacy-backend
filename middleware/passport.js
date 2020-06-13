@@ -3,7 +3,10 @@ const jwt = require ('jsonwebtoken');
 const User = require('../models/user');
 const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
-  require('dotenv').config();
+ const JWTstrategy = require('passport-jwt').Strategy,
+  ExtractJWT = require('passport-jwt').ExtractJwt;
+ require('dotenv').config();
+
 
 
   //register a user
@@ -76,7 +79,7 @@ passReqToCallback : true},
           const token = jwt.sign ({
             userId: user.id,
           },
-        process.env.JWT_KEY,
+        'JWT_KEY',
           {expiresIn: '24h'}
         );
 
@@ -89,23 +92,20 @@ passReqToCallback : true},
   }
 )
 );
-//very a user token
-passport.use('jwt', new LocalStrategy({usernameField:'email',
-passwordField:'password'},
-  function(username, password, done) {
-    console.log("Strategy "+username);
-      const userObj = new User();
-    userObj.getOne(username, function (user) {
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (user) {
-        console.log("passport strategy "+user);
-        return done(null, false, { message: 'logged in' });
-      }
-      return done(null, user);
-    });
+
+//verify a user token
+const opts ={jwtFromRequest: ExtractJWT.fromHeader('authorization'),
+secretOrKey: 'JWT_KEY'
+};
+passport.use('jwt',  new JWTstrategy(opts, (jwt_payload, done)=>{
+  try {
+    console.log("JWT passport: "+jwt_payload.userId);
+    //Pass the user details to the next middleware
+    return done(null, jwt_payload.userId);
+  } catch (error) {
+    done(error,false);
   }
+} 
 )
 );
 module.exports = passport;

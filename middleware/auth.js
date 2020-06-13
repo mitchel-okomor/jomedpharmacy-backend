@@ -2,7 +2,7 @@ const passport = require("./passport");
 
 const auth ={
 register:  (req, res, next) => {
-  passport.authenticate('register', function (err, user, info) {
+  passport.authenticate('register', {session:false}, function (err, user, info) {
     if (err) {
       return next(err);
     }
@@ -16,7 +16,7 @@ register:  (req, res, next) => {
 },
 
 login: (req, res, next) => {
-  passport.authenticate('login', function (err, user, info) {
+  passport.authenticate('login', {session:false}, function (err, user, info) {
     if (err) {
       return next(err);
     }
@@ -30,7 +30,7 @@ login: (req, res, next) => {
 },
 
 jwt: (req, res, next) => {
-  passport.authenticate('jwt', function (err, user, info) {
+  passport.authenticate('jwt',{session:false}, function (err, user, info) {
     if (err) {
       return next(err);
     }
@@ -38,7 +38,8 @@ jwt: (req, res, next) => {
       console.log(info);
       res.send(info);
     } else {
-      res.send(info);
+      console.log("auth: "+user);
+      next();
     }
   })(req, res, next);
 }
