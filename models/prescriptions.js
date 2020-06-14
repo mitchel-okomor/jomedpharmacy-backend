@@ -63,7 +63,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE prescription SET name ='${this.name}', number='${this.number}', email='${this.email}', is_answered='${this.isAnswered}' WHERE id = ${id}`;
+const queryString = `UPDATE prescription SET name ='${this.name}', email='${this.email}', number='${this.number}',  is_answered='${this.isAnswered}' WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;

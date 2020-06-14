@@ -3,13 +3,14 @@ const Prescription = require("../models/prescriptions");
 //create a prescription
 const prescriptions = {
   addPrescription: async (req, res) => {
+      const id ="";
     const name = req.body.name.trim();
-    const price = req.body.price.trim();
-    const category = req.body.category.trim();
-    const imagePath = req.filename? req.file.filename : ''; 
-
+    const email = req.body.email.trim();
+    const number = req.body.number.trim();
+    const description = req.body.description.trim(); 
+const isAnswered = req.body.isAnswered;
     //create a new instance of prescription
-    const newPrescription = new Prescription(name, price, category, imagePath);
+    const newPrescription = new Prescription(id, name, email, number, description, isAnswered);
 
     try {
       newPrescription.addOne((result) => {
@@ -100,11 +101,13 @@ deletePrescription: (req, res)=>{
 
 updatePrescription: (req, res)=>{
     const name = req.body.name.trim();
-    const price = req.body.price.trim();
-    const category = req.body.category.trim();
+    const email = req.body.email.trim();
+    const number = req.body.number.trim();
+    const description = req.body.description.trim(); 
+const isAnswered = req.body.isAnswered;
 
     //create a new instance of prescription
-    const newPrescription = new Prescription(name, price, category);    
+    const newPrescription = new Prescription(name, email, number, description, isAnswered);    
     try {
       newPrescription.updateOne(req.params.id, (result) => {
         if (result.affectedRows > 0) {
