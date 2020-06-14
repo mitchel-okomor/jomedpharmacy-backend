@@ -1,6 +1,6 @@
 var expect  = require('chai').expect;
 const request = require('request');
-let id = '';
+let id = 2;
 
 let base_url = 'http://localhost:4000/';
 
