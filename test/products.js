@@ -1,29 +1,3 @@
-<<<<<<< HEAD
-var expect  = require('chai').expect;
-const request = require('request');
-let id = '';
-
-let base_url = 'http://localhost:4000/';
-
- //create a product
- describe('/product', ()=>{
-
-  before( (done) => {  
-  
-    let form ={
-      name : 'multivite',
-    price :500,
-    category: 'Multivitamins'
-    };
-      request.post({url:base_url+'product/', form}, function(error, response, body) {
-        if (error) {
-              return console.error('Error:', error);
-            }
-            console.log(body);
-         id = JSON.parse(body).data;
-         expect(response.statusCode).to.equal(200);
-         done();
-=======
 var expect = require("chai").expect;
 const request = require("request");
 let id = "";
@@ -50,7 +24,6 @@ describe("/product", () => {
       id = JSON.parse(body).data;
       expect(response.statusCode).to.equal(200);
       done();
->>>>>>> products
     });
   });
 
