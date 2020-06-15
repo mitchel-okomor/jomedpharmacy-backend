@@ -16,6 +16,7 @@ const isAnswered = req.body.isAnswered;
 
     try {
       newPrescription.addOne((result) => {
+        console.log(result);
         if (result.insertId) {
           res.status(200).json({
             status: "success",

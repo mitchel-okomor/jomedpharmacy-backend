@@ -1,7 +1,7 @@
 const db = require('../services/db');
 
 class Prescriptions {
-    constructor(id, name,email, number, description, isAnswered){
+    constructor(id, name,email, number, description, isAnswered=false){
        this.id = id;
         this.name = name;
         this.email = email;
@@ -24,12 +24,10 @@ get prescription (){
 }
 
  addOne(callback){
-     
-    console.log("request recieved");
-const queryString = `INSERT INTO prescription (id, name, email, number, description, is_answered) values ('${this.id}','${this.name}', '${this.email}','${this.number}', '${this.description}', '${this.isAnswered}'`;
+const queryString = `INSERT INTO prescription (d_id, name, email, number, description, is_answered) values ('${this.id}','${this.name}', '${this.email}','${this.number}', '${this.description}', '${this.isAnswered}')`;
 db.query(queryString, (err, result)=>{
     if(err){
-        throw err;
+        console.log(err);
     }
 callback(result);
 });
