@@ -1,9 +1,11 @@
 const Prescription = require("../models/prescriptions");
+const { v4: uuidv4 } = require('uuid');
+
 
 //create a prescription
 const prescriptions = {
   addPrescription: async (req, res) => {
-      const id ="";
+      const id =uuidv4();
     const name = req.body.name.trim();
     const email = req.body.email.trim();
     const number = req.body.number.trim();

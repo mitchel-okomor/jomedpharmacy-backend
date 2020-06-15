@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const products = require('../controller/products');
 const customers = require('../controller/customers');
+const prescriptions = require('../controller/prescriptions');
 const users = require('../controller/users');
 const uplaod = require('../middleware/upload');
 const helper = require('../services/helper');
 const auth = require('../middleware/auth');
+
 
 
 
@@ -45,5 +47,18 @@ router.post('/login', helper.populateParams, auth.login);
 router.patch('/user/:id', auth.jwt, users.updateUser);
 // delete a user record
 router.delete('/user/:id', auth.jwt, users.deleteUser);
+
+
+
+// get a prescription
+router.get('/prescription/:id', prescriptions.getPrescription);
+// get all prescriptions
+router.get('/prescriptions', prescriptions.getAllPrescription);
+// create a prescription
+router.post('/prescription', prescriptions.addPrescription);
+// update a prescription
+router.patch('/prescription/:id', prescriptions.updatePrescription);
+// delete a prescription
+router.delete('/prescription/:id', prescriptions.deletePrescription);
 
 module.exports = router;

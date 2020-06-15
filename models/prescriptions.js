@@ -29,7 +29,7 @@ get prescription (){
 const queryString = `INSERT INTO prescription (id, name, email, number, description, is_answered) values ('${this.id}','${this.name}', '${this.email}','${this.number}', '${this.description}', '${this.isAnswered}'`;
 db.query(queryString, (err, result)=>{
     if(err){
-        console.log(err);
+        throw err;
     }
 callback(result);
 });
