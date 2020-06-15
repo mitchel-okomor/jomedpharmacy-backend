@@ -4,6 +4,7 @@ const products = require('../controller/products');
 const customers = require('../controller/customers');
 const prescriptions = require('../controller/prescriptions');
 const users = require('../controller/users');
+const orders = require('../controller/orders');
 const uplaod = require('../middleware/upload');
 const helper = require('../services/helper');
 const auth = require('../middleware/auth');
@@ -60,5 +61,16 @@ router.post('/prescription', prescriptions.addPrescription);
 router.patch('/prescription/:id', prescriptions.updatePrescription);
 // delete a prescription
 router.delete('/prescription/:id', prescriptions.deletePrescription);
+
+// get an order
+router.get('/order/:id', orders.getOrder);
+// get all orders
+router.get('/orders', orders.getAllOrder);
+// create an order
+router.post('/order', orders.addOrder);
+// update an order
+router.patch('/order/:id', orders.updateOrder);
+// delete an order
+router.delete('/order/:id', orders.deleteOrder);
 
 module.exports = router;

@@ -57,7 +57,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE product_order SET product ='${this.products}', amount='${this.amount}', number='${this.isPaid}' WHERE id = ${id}`;
+const queryString = `UPDATE product_order SET products ='${this.products}', amount='${this.amount}', is_paid='${this.isPaid}' WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;

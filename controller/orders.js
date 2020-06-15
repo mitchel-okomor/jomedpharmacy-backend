@@ -1,10 +1,11 @@
 const Order = require("../models/orders");
+const { v4: uuidv4 } = require('uuid');
 
 
 //create a order
 const orders = {
   addOrder: async (req, res) => {
-      const customer_id =req.customerId;
+      const customer_id =uuidv4();
     const products = req.body.products;
     const amount = req.body.amount; 
 const isPaid = req.body.isPaid;
