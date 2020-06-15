@@ -1,30 +1,26 @@
 const db = require('../services/db');
 
 class Order {
-    constructor(id, name,email, number, description, isAnswered=false){
+    constructor(id, products, amount, isPaid=false){
        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.number = number;
-        this.description = description;
-        this.isAnswered = isAnswered;
+        this.products = products;
+        this.amount = amount;
+        this.isPaid = isPaid;
     }
 
 set order (order){
     this.id =order.id;
-    this.name = order.name;
-    this.email = order.email;
-    this.number = order.number;
-    this.description = order.description;
-    this.isAnswered = order.isAnswered;
+    this.products = order.products;
+    this.amount = order.amount;
+    this.isPaid = order.isPaid;
  }
 
 get order (){
-    return ([this.id, this.name, this.email, this.number, this.description, this.isAnswered]);
+    return ([this.id, this.products, this.amount, this.isPaid]);
 }
 
  addOne(callback){
-const queryString = `INSERT INTO order (d_id, name, email, number, description, is_answered) values ('${this.id}','${this.name}', '${this.email}','${this.number}', '${this.description}', '${this.isAnswered}')`;
+const queryString = `INSERT INTO product_order (customer_id, products, amount, is_paid) values ('${this.id}','${this.products}', '${this.amount}','${this.isPaid}')`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
@@ -35,7 +31,7 @@ callback(result);
 }
 
 getOne(id, callback){
-const queryString = `SELECT * FROM order WHERE id = ${id}`;
+const queryString = `SELECT * FROM product_order WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
@@ -48,7 +44,7 @@ db.query(queryString, (err, result)=>{
 
 
 getAll(callback){
-    const queryString = `SELECT * FROM order`;
+    const queryString = `SELECT * FROM product_order`;
 db.query(queryString, (err, result)=>{
     if(err){
        throw err;
@@ -61,7 +57,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE order SET name ='${this.name}', email='${this.email}', number='${this.number}',  is_answered='${this.isAnswered}' WHERE id = ${id}`;
+const queryString = `UPDATE product_order SET product ='${this.products}', amount='${this.amount}', number='${this.isPaid}' WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;
@@ -71,7 +67,7 @@ callback(result);
 }
 
 deleteOne(id, callback){
-    const queryString = `DELETE FROM order WHERE id = ${id}`;
+    const queryString = `DELETE FROM product_order WHERE id = ${id}`;
     db.query(queryString, (err, result)=>{
         if(err){
            throw err;
