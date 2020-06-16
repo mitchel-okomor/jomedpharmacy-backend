@@ -36,7 +36,7 @@ router.patch('/customer/:id', customers.updateCustomer);
 router.delete('/customer/:id', customers.deleteCustomer);
 
 // get a user
-router.get('/user/:id', users.getUser);
+router.get('/user/:id',auth.jwt, users.getUser);
 // get all users
 router.get('/users', auth.jwt, users.getAllUsers);
 // create a user
