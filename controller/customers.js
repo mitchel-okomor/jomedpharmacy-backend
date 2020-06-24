@@ -3,15 +3,15 @@ const Customer = require("../models/customers");
 //create a customer
 const customers = {
   addCustomer: async (req, res) => {
-    const name = req.body.name.trim();
+    console.log(req.body.number);
+    try {
+    const name = req.body.fname.trim() + " " + req.body.lname.trim();
     const number = req.body.number.trim();
     const address = req.body.address.trim();
     const email = req.body.email.trim();
 
     //create a new instance of customer
     const newCustomer = new Customer(name, number, address, email);
-
-    try {
       newCustomer.addOne((result) => {
         if (result.insertId) {
           res.status(200).json({
@@ -40,7 +40,7 @@ const customers = {
         if (result.length > 0) {
           res.status(200).json({
             status: "success",
-            data: result,
+            data: result[0],
           });
         } else {
           res.status(501).json({
