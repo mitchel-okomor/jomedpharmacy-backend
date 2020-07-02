@@ -1,11 +1,12 @@
 const db = require('../services/db');
 
 class Customer {
-    constructor(name, number, address, email){
+    constructor(name, number, address, email, password){
         this.name = name;
         this.number = number;
         this.address = address;
         this.email = email;
+        this.password = password;
     }
 
 set customer (customer){
@@ -13,16 +14,17 @@ set customer (customer){
     this.number =customer.number;
     this.address =customer.address;
     this.email = customer.email;
+    this.password = customer.password;
 }
 
 get customer (){
-    return ([this.name, this.number, this.address, this.emial]);
+    return ([this.name, this.number, this.address, this.emial, this.password]);
 }
 
  addOne(callback){
      
     console.log("request recieved");
-const queryString = `INSERT INTO customer (name, number, address, email) values ('${this.name}', '${this.number}', '${this.address}','${this.email}' )`;
+const queryString = `INSERT INTO customer (name, number, address, email, password) values ('${this.name}', '${this.number}', '${this.address}','${this.email}','${this.password}' )`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
@@ -59,7 +61,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE customer SET name ='${this.name}', number='${this.number}', address='${this.address}', email='${this.email}' WHERE id = ${id}`;
+const queryString = `UPDATE customer SET name ='${this.name}', number='${this.number}', address='${this.address}', email='${this.email}', , email='${this.password}' WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;

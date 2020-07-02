@@ -40,7 +40,7 @@ const products = {
         if (result.length > 0) {
           res.status(200).json({
             status: "success",
-            data: result,
+            data: result[0],
           });
         } else {
           res.status(501).json({

@@ -29,11 +29,14 @@ router.get('/customer/:id', customers.getCustomer);
 // get all customers
 router.get('/customers', customers.getAllCustomers);
 // create a customer
-router.post('/customer', customers.addCustomer);
+router.post('/customer', helper.populateParams, auth.registerCustomer);
 // update a customer record
 router.patch('/customer/:id', customers.updateCustomer);
 // delete a customer record
 router.delete('/customer/:id', customers.deleteCustomer);
+//login a customer
+router.post('/logincustomer', helper.populateParams, auth.logincustomer);
+
 
 // get a user
 router.get('/user/:id',auth.jwt, users.getUser);
