@@ -118,6 +118,8 @@ passReqToCallback : true},
   //create new user
   try{
     const newCustomer = new Customer(name, number, address, email, newPassword);
+    
+          //add to database
     newCustomer.addOne ((customerId)=> {
       if (!customerId) {
         return done(null, false, { message: 'Customer not registered' });
@@ -148,6 +150,8 @@ passwordField:'password',
 passReqToCallback : true},
   function(req, username, password, done) {
       const customerObj = new Customer();
+      
+      //search database for user
     customerObj.getByEmail(username, function (customer) {
       console.log("passport: " + customer.id);
       if (!customer) {
@@ -162,7 +166,7 @@ passReqToCallback : true},
           }
         else{ 
           const token = jwt.sign ({
-            customerId: customer.id,
+            userId: customer.id,
           },
         'JWT_KEY',
           {expiresIn: '24h'}

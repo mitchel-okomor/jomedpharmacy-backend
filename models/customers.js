@@ -46,7 +46,7 @@ db.query(queryString, (err, result)=>{
 });
 }
 
-
+//search database by user email
 getByEmail(email, callback){
     const queryString = `SELECT * FROM customer WHERE email = '${email}'`;
     db.query(queryString, (err, result)=>{

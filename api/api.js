@@ -25,7 +25,7 @@ router.delete('/product/:id', products.deleteProduct);
 
 
 // get a customer
-router.get('/customer/:id', customers.getCustomer);
+router.get('/customer/:id', auth.jwt, customers.getCustomer);
 // get all customers
 router.get('/customers', customers.getAllCustomers);
 // create a customer
