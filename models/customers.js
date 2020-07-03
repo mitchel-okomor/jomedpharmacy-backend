@@ -23,7 +23,6 @@ get customer (){
 
  addOne(callback){
      
-    console.log("request recieved");
 const queryString = `INSERT INTO customer (name, number, address, email, password) values ('${this.name}', '${this.number}', '${this.address}','${this.email}','${this.password}' )`;
 db.query(queryString, (err, result)=>{
     if(err){
@@ -41,11 +40,24 @@ db.query(queryString, (err, result)=>{
         console.log(err);
     }
     else{
+
     callback(result);
     }
 });
 }
 
+
+getByEmail(email, callback){
+    const queryString = `SELECT * FROM customer WHERE email = '${email}'`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+        callback(result[0]);
+        }
+    });
+    }
 
 getAll(callback){
     const queryString = `SELECT * FROM customer`;

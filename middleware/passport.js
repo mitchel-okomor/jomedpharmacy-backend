@@ -40,7 +40,7 @@ try{
     }
     if (userId) {
       console.log("passport strategy "+userId);
-      return done(null, false, { message: 'user successfully created',
+      return done(null, userId, { message: 'user successfully created',
   data: userId});
     }
     return done(null, userId);
@@ -85,7 +85,7 @@ passReqToCallback : true},
         );
 
             console.log("passport strategy "+user.firstname);
-        return done(null, false, { message: 'logged in', user, token }); 
+        return done(null, user, { message: 'logged in', user, token }); 
         }
         });
       }
@@ -124,7 +124,7 @@ passReqToCallback : true},
       }
       if (customerId) {
         console.log("passport strategy "+customerId);
-        return done(null, false, { message: 'user successfully created',
+        return done(null, customerId, { message: 'user successfully created',
     data: customerId});
       }
       return done(null, customerId);
@@ -147,29 +147,27 @@ passport.use('logincustomer', new LocalStrategy({usernameField:'email',
 passwordField:'password',
 passReqToCallback : true},
   function(req, username, password, done) {
-    console.log("logincustomer Strategy "+username);
       const customerObj = new Customer();
-    customerObj.getOne(username, function (user) {
-      if (!user) {
+    customerObj.getByEmail(username, function (customer) {
+      console.log("passport: " + customer.id);
+      if (!customer) {
         return done(null, false, { message: 'Incorrect username or password' });
       }
      else{
        //compare user imputed password with database password
-        bcrypt.compare (password, user.password,  (error, valid) => {
+        bcrypt.compare (password, customer.password,  (error, valid) => {
           if(error){console.log(error);}
          else if (!password ||!valid) {
             return done(null, false, { message: 'Incorrect username or password' });
           }
         else{ 
           const token = jwt.sign ({
-            userId: user.id,
+            customerId: customer.id,
           },
         'JWT_KEY',
           {expiresIn: '24h'}
         );
-
-            console.log("passport strategy "+user.firstname);
-        return done(null, false, { message: 'logged in', user, token }); 
+        return done(null, customer, { message: 'success', token }); 
         }
         });
       }

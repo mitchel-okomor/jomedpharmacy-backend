@@ -48,15 +48,16 @@ login: (req, res, next) => {
 
 //login customer
 logincustomer: (req, res, next) => {
-  passport.authenticate('logincustomer', {session:false}, function (err, user, info) {
+  passport.authenticate('logincustomer', {session:false}, function (err, customer, info) {
     if (err) {
       return next(err);
     }
-    if (!user) {
+    if (!customer) {
+      console.log(customer);
       console.log("login No customer: "+info);
       res.send(info);
     } else {
-  res.send({info, user});
+  res.send({info, customer});
     }
   })(req, res, next);
 },
