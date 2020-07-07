@@ -9,9 +9,9 @@ register:  (req, res, next) => {
     }
     if (!user) {
       console.log(info);
-      res.send(info);
+      res.status(500).send(info);
     } else {
-      res.send(info);
+      res.status(500).send(info);
     }
   })(req, res, next);
 },
@@ -24,9 +24,9 @@ login: (req, res, next) => {
     }
     if (!user) {
       console.log("login No user: "+info);
-      res.send(info);
+      res.status(500).send(info);
     } else {
-  res.send({info, user});
+      res.status(200).send({info, user});
     }
   })(req, res, next);
 },
@@ -39,9 +39,9 @@ login: (req, res, next) => {
       }
       if (!customer) {
         console.log(info);
-        res.send(info);
+        res.status(500).send(info);
       } else {
-        res.send(info);
+        res.status(200).send(info);
       }
     })(req, res, next);
   },
@@ -53,22 +53,23 @@ logincustomer: (req, res, next) => {
       return next(err);
     }
     if (!customer) {
-      console.log(customer);
       console.log("login No customer: "+info);
-      res.send(info);
+      res.status(500).send(info);
     } else {
-  res.send({info, customer});
+  res.status(200).send({info, customer});
     }
   })(req, res, next);
 },
 
+
+//verify token in header
 jwt: (req, res, next) => {
   passport.authenticate('jwt',{session:false}, function (err, user, info) {
     if (err) {
       return next(err);
     }
     if (!user) {
-      res.send(info);
+      res.status(500).send(info);
     } else {
       next();
     }

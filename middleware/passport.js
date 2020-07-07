@@ -153,7 +153,6 @@ passReqToCallback : true},
       
       //search database for user
     customerObj.getByEmail(username, function (customer) {
-      console.log("passport: " + customer.id);
       if (!customer) {
         return done(null, false, { message: 'Incorrect username or password' });
       }
