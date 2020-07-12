@@ -1,5 +1,4 @@
 const Product = require("../models/products");
-const { search } = require("../api/api");
 
 //create a product
 const products = {
