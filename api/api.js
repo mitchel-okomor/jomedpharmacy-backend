@@ -12,15 +12,17 @@ const auth = require('../middleware/auth');
 
 
 // get a product
-router.get('/product/:id', products.getProduct);
+router.get('/product/:id', products.get);
 // get all products
-router.get('/products', products.getAllProducts);
+router.get('/products', products.getAll);
 // create a product
-router.post('/product', uplaod.single('image'), products.addProduct);
+router.post('/product', uplaod.single('image'), products.add);
 // update a product
-router.patch('/product/:id',products.updateProduct);
+router.patch('/product/:id',products.update);
 // delete a product
-router.delete('/product/:id', products.deleteProduct);
+router.delete('/product/:id', products.delete);
+// delete a product
+router.get('/search/', products.search);
 
 
 

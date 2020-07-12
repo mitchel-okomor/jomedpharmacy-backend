@@ -79,6 +79,22 @@ deleteOne(id, callback){
     });
 }
 
+
+search(val, callback){
+    const queryString = `SELECT * FROM product WHERE name LIKE '%${val}%'`;
+db.query(queryString, (err, result)=>{
+    if(err){
+       throw err;
+    }
+    else{
+        console.log(result);
+    callback(result);
+    }
+});
+
+}
+
+
 }
 
 module.exports = Products;

@@ -1,8 +1,9 @@
 const Product = require("../models/products");
+const { search } = require("../api/api");
 
 //create a product
 const products = {
-  addProduct: async (req, res) => {
+  add: async (req, res) => {
     const name = req.body.name.trim();
     const price = req.body.price.trim();
     const category = req.body.category.trim();
@@ -31,7 +32,7 @@ const products = {
     }
   },
 
-  getProduct: (req, res) => {
+  get: (req, res) => {
     console.log(req.params.id);
     const product = new Product();
 
@@ -54,7 +55,7 @@ const products = {
     }
   },
 
-  getAllProducts: (req, res) => {
+  getAll: (req, res) => {
     const product = new Product();
 
     try {
@@ -77,7 +78,7 @@ const products = {
   },
 
 
-deleteProduct: (req, res)=>{
+delete: (req, res)=>{
     const product = new Product();
     try {
       product.deleteOne(req.params.id, (result) => {
@@ -98,7 +99,7 @@ deleteProduct: (req, res)=>{
     }
 },
 
-updateProduct: (req, res)=>{
+update: (req, res)=>{
     const name = req.body.name.trim();
     const price = req.body.price.trim();
     const category = req.body.category.trim();
@@ -122,6 +123,29 @@ updateProduct: (req, res)=>{
     } catch (err) {
         console.log(err);
     }
+},
+
+ search: (req, res) => {
+  console.log(req.query.value);
+  const product = new Product();
+
+  try {
+    product.search(req.query.value, (result) => {
+      if (result.length > 0) {
+        res.status(200).json({
+          status: "success",
+          data: result,
+        });
+      } else {
+        res.status(501).json({
+          status: "error",
+          message: "No product found",
+        });
+      }
+    });
+  } catch (err) {
+      console.log(err);
+  }
 }
 
 };
