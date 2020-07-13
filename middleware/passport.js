@@ -168,7 +168,7 @@ passReqToCallback : true},
             userId: customer.id,
           },
         'JWT_KEY',
-          {expiresIn: '24h'}
+          {expiresIn: '6h'}
         );
         return done(null, customer, { message: 'success', token }); 
         }
