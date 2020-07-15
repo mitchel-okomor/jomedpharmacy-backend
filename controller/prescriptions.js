@@ -1,11 +1,11 @@
 const Prescription = require("../models/prescriptions");
-const { v4: uuidv4 } = require('uuid');
+const randomId = require("../services/helper");
 
 
 //create a prescription
 const prescriptions = {
   addPrescription: async (req, res) => {
-      const id =uuidv4();
+      const id =randomId.idGenerator();
     const name = req.body.name.trim();
     const email = req.body.email.trim();
     const number = req.body.number.trim();
