@@ -124,7 +124,6 @@ updateCustomer: (req, res)=>{
         console.log(err);
     }
 }
-
 };
 
 module.exports = customers;

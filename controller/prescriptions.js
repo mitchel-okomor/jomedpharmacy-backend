@@ -11,8 +11,9 @@ const prescriptions = {
     const number = req.body.number.trim();
     const description = req.body.description.trim(); 
 const isAnswered = req.body.isAnswered;
+const customerId = req.body.customerId;
     //create a new instance of prescription
-    const newPrescription = new Prescription(id, name, email, number, description, isAnswered);
+    const newPrescription = new Prescription(id, name, email, number, description, isAnswered, customerId);
 
     try {
       newPrescription.addOne((result) => {
@@ -122,6 +123,67 @@ const isAnswered = req.body.isAnswered;
           res.status(501).json({
             status: "error",
             message: "Failed to update prescription",
+          });
+        }
+      });
+    } catch (err) {
+        console.log(err);
+    }
+},
+
+getStandingPrescriptions: (req,res)=>{
+  console.log(req.params.id);
+  const prescriptions = new Prescription();
+
+    try {
+      prescriptions.getStandingPrescriptions(req.params.id, (result) => {
+        if (result.length > 0) {
+          res.status(200).json({
+            status: "success",
+            data: result,
+          });
+        } 
+        else if(result.length <1){
+          res.status(200).json({
+            status: "success",
+            message: "No standing Prescription",
+          });
+        }
+        else {
+          res.status(501).json({
+            status: "error",
+            message: "No record found",
+          });
+        }
+      });
+    } catch (err) {
+        console.log(err);
+    }
+},
+
+
+getPrescriptionHistory: (req,res)=>{
+  console.log(req.params.id);
+  const prescriptions = new Prescription();
+
+    try {
+      prescriptions.getPrescriptionHistory(req.params.id, (result) => {
+        if (result.length > 0) {
+          res.status(200).json({
+            status: "success",
+            data: result,
+          });
+        } 
+        else if(result.length <1){
+          res.status(200).json({
+            status: "success",
+            message: "No Prescription Yet",
+          });
+        }
+        else {
+          res.status(501).json({
+            status: "error",
+            message: "No record found",
           });
         }
       });

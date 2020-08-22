@@ -115,7 +115,7 @@ passReqToCallback : true},
       const email = req.body.email.trim();
       let newPassword = hash;
   
-  //create new user
+  //create new customer
   try{
     const newCustomer = new Customer(name, number, address, email, newPassword);
     
@@ -165,7 +165,7 @@ passReqToCallback : true},
           }
         else{ 
           const token = jwt.sign ({
-            userId: customer.id,
+            userId: customer.customer_id,
           },
         'JWT_KEY',
           {expiresIn: '6h'}

@@ -1,13 +1,14 @@
 const db = require('../services/db');
 
 class Prescriptions {
-    constructor(id, name,email, number, description, isAnswered=false){
+    constructor(id, name,email, number, description, isAnswered=false, customerId){
        this.id = id;
         this.name = name;
         this.email = email;
         this.number = number;
         this.description = description;
         this.isAnswered = isAnswered;
+        this.customerId = customerId;
     }
 
 set prescription (prescription){
@@ -20,11 +21,11 @@ set prescription (prescription){
  }
 
 get prescription (){
-    return ([this.id, this.name, this.email, this.number, this.description, this.isAnswered]);
+    return ([this.id, this.name, this.email, this.number, this.description, this.isAnswered, this.customerId]);
 }
 
  addOne(callback){
-const queryString = `INSERT INTO prescription (d_id, name, email, number, description, is_answered) values ('${this.id}','${this.name}', '${this.email}','${this.number}', '${this.description}', '${this.isAnswered}')`;
+const queryString = `INSERT INTO prescription (d_id, name, email, number, description, is_answered, customer_id) values ('${this.id}','${this.name}', '${this.email}','${this.number}', '${this.description}', '${this.isAnswered}', '${this.customerId}')`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
@@ -81,6 +82,35 @@ deleteOne(id, callback){
         }
     });
 }
+
+
+getStandingPrescriptions(customerId,callback){
+    console.log(customerId);
+    const queryString = `select * FROM prescription Where customer_id = ${customerId} AND is_answered <1`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+           throw err;
+        }
+        else{
+        callback(result);
+        }
+    });
+}
+
+
+getPrescriptionHistory(customerId,callback){
+    console.log(customerId);
+    const queryString = `select * FROM prescription Where customer_id = ${customerId} AND is_answered >0`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+           throw err;
+        }
+        else{
+        callback(result);
+        }
+    });
+}
+
 
 }
 

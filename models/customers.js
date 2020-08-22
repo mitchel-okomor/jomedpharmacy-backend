@@ -34,7 +34,7 @@ callback(result);
 }
 
 getOne(id, callback){
-const queryString = `SELECT * FROM customer WHERE id = ${id}`;
+const queryString = `SELECT * FROM customer WHERE customer_id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);

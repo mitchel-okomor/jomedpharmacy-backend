@@ -78,6 +78,32 @@ deleteOne(id, callback){
     });
 }
 
+getStandingOrders(customerId,callback){
+    console.log(customerId);
+    const queryString = `select * FROM product_order LEFT JOIN product ON product_order.product_id = product.product_id Where customer_id = ${customerId} AND is_answered <1`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+           throw err;
+        }
+        else{
+        callback(result);
+        }
+    });
+}
+
+
+getOrderHistory(customerId,callback){
+    const queryString = `select * FROM product_order LEFT JOIN product ON product_order.product_id = product.product_id Where customer_id = ${customerId} AND is_answered >0`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+           throw err;
+        }
+        else{
+        callback(result);
+        }
+    });
+}
+
 }
 
 module.exports = Order;

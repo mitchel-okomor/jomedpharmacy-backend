@@ -7,6 +7,7 @@ const users = require('../controller/users');
 const uplaod = require('../middleware/upload');
 const helper = require('../services/helper');
 const auth = require('../middleware/auth');
+const orders = require('../controller/orders');
 
 
 
@@ -38,6 +39,11 @@ router.patch('/customer/:id', customers.updateCustomer);
 router.delete('/customer/:id', customers.deleteCustomer);
 //login a customer
 router.post('/logincustomer', helper.populateParams, auth.logincustomer);
+//standing orders
+router.get('/standingorders/:id', orders.getStandingOrders);
+router.get('/standingprescriptions/:id', prescriptions.getStandingPrescriptions);
+router.get('/orderhistory/:id', orders.getOrderHistory);
+router.get('/prescriptionhistory/:id', prescriptions.getPrescriptionHistory);
 
 
 // get a user

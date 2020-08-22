@@ -123,6 +123,68 @@ const isPaid = req.body.isPaid;
     } catch (err) {
         console.log(err);
     }
+},
+
+
+getStandingOrders: (req,res)=>{
+  console.log(req.params.id);
+  const orders = new Order();
+
+    try {
+      orders.getStandingOrders(req.params.id, (result) => {
+        if (result.length > 0) {
+          res.status(200).json({
+            status: "success",
+            data: result,
+          });
+        } 
+        else if(result.length <1){
+          res.status(200).json({
+            status: "success",
+            message: "No standing order",
+          });
+        }
+        else {
+          res.status(501).json({
+            status: "error",
+            message: "No record found",
+          });
+        }
+      });
+    } catch (err) {
+        console.log(err);
+    }
+},
+
+
+getOrderHistory: (req,res)=>{
+  console.log(req.params.id);
+  const orders = new Order();
+
+    try {
+      orders.getOrderHistory(req.params.id, (result) => {
+        if (result.length > 0) {
+          res.status(200).json({
+            status: "success",
+            data: result,
+          });
+        } 
+        else if(result.length <1){
+          res.status(200).json({
+            status: "success",
+            message: "No orders yet",
+          });
+        }
+        else {
+          res.status(501).json({
+            status: "error",
+            message: "No record found",
+          });
+        }
+      });
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 };
