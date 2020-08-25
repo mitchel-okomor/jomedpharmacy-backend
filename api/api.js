@@ -44,7 +44,8 @@ router.get('/standingorders/:id', orders.getStandingOrders);
 router.get('/standingprescriptions/:id', prescriptions.getStandingPrescriptions);
 router.get('/orderhistory/:id', orders.getOrderHistory);
 router.get('/prescriptionhistory/:id', prescriptions.getPrescriptionHistory);
-
+router.post('/resetpassword', customers.resetPassword);
+router.get('/confirmation/:token', customers.confirmEmail);
 
 // get a user
 router.get('/user/:id',auth.jwt, users.getUser);

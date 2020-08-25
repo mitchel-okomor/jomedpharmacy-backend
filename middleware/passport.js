@@ -6,7 +6,6 @@ const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
  const JWTstrategy = require('passport-jwt').Strategy,
   ExtractJWT = require('passport-jwt').ExtractJwt;
- require('dotenv').config();
 
 
 
@@ -100,7 +99,6 @@ passReqToCallback : true},
   passwordField:'password',
   passReqToCallback : true},
   (req, username, password, done)=> {
-  
      //hash password with bcrypt-nodejs
      let salt = bcrypt.genSaltSync(10);
      bcrypt.hash(req.body.password, salt, null, (error, hash) => {
@@ -150,7 +148,6 @@ passwordField:'password',
 passReqToCallback : true},
   function(req, username, password, done) {
       const customerObj = new Customer();
-      
       //search database for user
     customerObj.getByEmail(username, function (customer) {
       if (!customer) {

@@ -54,6 +54,7 @@ getByEmail(email, callback){
             console.log(err);
         }
         else{
+            console.log(result);
         callback(result[0]);
         }
     });
@@ -73,7 +74,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE customer SET name ='${this.name}', number='${this.number}', address='${this.address}', email='${this.email}', , email='${this.password}' WHERE id = ${id}`;
+const queryString = `UPDATE customer SET name ='${this.name}', number='${this.number}', address='${this.address}', email='${this.email}', , password='${this.password}' WHERE id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;

@@ -1,4 +1,9 @@
 const Customer = require("../models/customers");
+const jwt = require('jsonwebtoken');
+const helper = require("../services/helper");
+const bcrypt = require("bcrypt-nodejs");
+
+
 
 //create a customer
 const customers = {
@@ -123,7 +128,86 @@ updateCustomer: (req, res)=>{
     } catch (err) {
         console.log(err);
     }
+},
+
+
+
+
+  resetPassword: (req, res)=>{
+    console.log(req.body.email);
+    const customer = new Customer();
+
+    try {
+      customer.getByEmail(req.body.email, (customer) => {
+
+        if (customer) {
+          let token = jwt.sign({ customer: customer.customer_id }, 'shhhhh',{ expiresIn: 60 * 60 });
+        let url = `http://localhost:4000/confirmation/${token}`;
+          let html = `please click on this link to change password<a href="${url}"> ${url}</a>`;
+        
+        helper.sendmail(customer.email, token, html);
+          res.status(200).json({
+            status: "success",
+            message: "check your email for confirmation",
+          });
+        } else {
+          res.status(501).json({
+            status: "error",
+            message: "No customer found",
+          });
+        }
+      });
+    } catch (err) {
+        console.log(err);
+    }
+  },
+
+  confirmEmail: (req, res)=>{
+
+  helper.verifyToken(req.params.token, (err, result)=>{
+if(err){
+  res.status(400).send({
+    status: "error",
+    message: "Invalid or expeired token"
+  });
+}else{
+
+     //hash password with bcrypt-nodejs
+     let salt = bcrypt.genSaltSync(10);
+     bcrypt.hash(req.body.password, salt, null, (error, hash) => {
+          if (error) {
+           console.log(error);
+          }
+        
+      //get all user information, password has already been declared in function parameters and will be hashed below
+
+      let password = hash;
+  
+      const newCustomer = new Customer(password);    
+      try {
+        newCustomer.updateOne(result.customer, (result) => {
+          if (result.affectedRows > 0) {
+            res.status(200).json({
+              status: "success",
+              message: "Password changed successfuly",
+            });
+          } else {
+            res.status(501).json({
+              status: "error",
+              message: "Reset password failed",
+            });
+          }
+        });
+      } catch (err) {
+          console.log(err);
+      }
+  
+     });
 }
+
+
+  });
+  }
 };
 
 module.exports = customers;

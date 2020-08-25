@@ -1,3 +1,11 @@
+const nodemailer = require("nodemailer");
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+
+
 const helper = {};
 helper.populateParams = (req, res, next) =>{
 req.params.fName = req.body.fname  ;
@@ -15,6 +23,71 @@ helper.idGenerator = ()=>{
         // after the decimal.
         return '_' + Math.random().toString(36).substr(2, 9);
       };
+
+
+
+helper.sendmail = (email, text, html)=>{
+
+    console.log("Inside Node Mailer");
+  
+  
+    //create transport
+  
+     let transporter = nodemailer.createTransport({
+       service: "Gmail",
+       auth: {
+         user: "jomedpharmacy@gmail.com",
+         pass: "08074460432"
+       },
+       tls:{
+         rejectUnauthorized: false,
+       } 
+     });
+     
+  
+  const message ={
+    from: "jomedpharmacy@gmail.com",
+    to: email,
+    subject: "Testing mail",
+    text: text,
+    html:html
+  };
+  
+   transporter.sendMail(message, (error, response)=>{
+    if(error){
+      console.log(error);
+      console.log("mail sent");
+     
+    }
+    else{
+      console.log("mail sent");
+     return response;
+    }
+  });
+   
+  return transporter;
+    };
+
+
+  helper.verifyToken = (token, callback) => {
+  
+      try {
+        const decodedToken = jwt.verify(token, 'shhhhh');
+        const userId = decodedToken.customer;
+        console.log(userId);
+        jwt.verify(token, 'shhhhh', function(err, decoded) {
+            console.log(decoded); // bar
+    
+   callback(decoded);
+          });
+           
+    
+       
+      }catch(err){
+    console.log(err);
+      }
+      
+    };
 
 module.exports = helper;
 

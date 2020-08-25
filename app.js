@@ -6,6 +6,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const api = require('./api/api');
+require('dotenv').config();
 
 
 

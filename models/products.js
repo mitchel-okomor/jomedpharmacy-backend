@@ -32,7 +32,7 @@ callback(result);
 }
 
 getOne(id, callback){
-const queryString = `SELECT * FROM product WHERE id = ${id}`;
+const queryString = `SELECT * FROM product WHERE product_id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);
@@ -58,7 +58,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE product SET name ='${this.name}', price='${this.price}', category='${this.category}' WHERE id = ${id}`;
+const queryString = `UPDATE product SET name ='${this.name}', price='${this.price}', category='${this.category}' WHERE product_id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;
@@ -68,7 +68,7 @@ callback(result);
 }
 
 deleteOne(id, callback){
-    const queryString = `DELETE FROM product WHERE id = ${id}`;
+    const queryString = `DELETE FROM product WHERE product_id = ${id}`;
     db.query(queryString, (err, result)=>{
         if(err){
            throw err;
