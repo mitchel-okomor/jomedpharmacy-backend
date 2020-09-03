@@ -1,11 +1,12 @@
 const db = require('../services/db');
 
 class Products {
-    constructor(name, price, category, image){
+    constructor(name, price, category, image, description){
         this.name = name;
         this.price = price;
         this.category = category;
         this.image = image;
+        this.description = description;
     }
 
 set product (product){
@@ -21,7 +22,7 @@ get product (){
  addOne(callback){
      
     console.log("request recieved");
-const queryString = `INSERT INTO product (name, price, category, image_url) values ('${this.name}', '${this.price}', '${this.category}', '${this.image}')`;
+const queryString = `INSERT INTO product (name, price, category, image_url, description) values ('${this.name}', '${this.price}', '${this.category}', '${this.image}', '${this.description}')`;
 db.query(queryString, (err, result)=>{
     if(err){
         console.log(err);

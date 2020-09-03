@@ -134,7 +134,7 @@ updateCustomer: (req, res)=>{
 
 
   resetPassword: (req, res)=>{
-    console.log(req.body.email);
+    console.log(req.body);
     const customer = new Customer();
 
     try {
@@ -142,7 +142,7 @@ updateCustomer: (req, res)=>{
 
         if (customer) {
           let token = jwt.sign({ customer: customer.customer_id }, 'shhhhh',{ expiresIn: 60 * 60 });
-        let url = `http://localhost:4000/confirmation/${token}`;
+        let url = `http://localhost:3000/resetpassword/${token}`;
           let html = `please click on this link to change password<a href="${url}"> ${url}</a>`;
         
         helper.sendmail(customer.email, token, html);
@@ -162,11 +162,29 @@ updateCustomer: (req, res)=>{
     }
   },
 
+verifyToken:(req, res)=>{
+  console.log("verify token");
+helper.verifyToken(req.params.token, (err, result)=>{
+  if(err){
+    res.status(400).json({
+      status: "error",
+      valid: false
+    });
+  }else{
+    console.log(result);
+    res.status(200).json({
+      status: "success",
+      valid: true
+    });
+  }
+});
+},
+
   confirmEmail: (req, res)=>{
 
   helper.verifyToken(req.params.token, (err, result)=>{
 if(err){
-  res.status(400).send({
+  res.status(400).json({
     status: "error",
     message: "Invalid or expeired token"
   });

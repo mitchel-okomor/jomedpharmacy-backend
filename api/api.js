@@ -4,7 +4,7 @@ const products = require('../controller/products');
 const customers = require('../controller/customers');
 const prescriptions = require('../controller/prescriptions');
 const users = require('../controller/users');
-const uplaod = require('../middleware/upload');
+const upload = require('../middleware/upload');
 const helper = require('../services/helper');
 const auth = require('../middleware/auth');
 const orders = require('../controller/orders');
@@ -17,14 +17,13 @@ router.get('/product/:id', products.get);
 // get all products
 router.get('/products', products.getAll);
 // create a product
-router.post('/product', uplaod.single('image'), products.add);
+router.post('/product', upload.single('image'), products.add);
 // update a product
 router.patch('/product/:id',products.update);
 // delete a product
 router.delete('/product/:id', products.delete);
 // delete a product
 router.get('/search/', products.search);
-
 
 
 // get a customer
@@ -46,6 +45,7 @@ router.get('/orderhistory/:id', orders.getOrderHistory);
 router.get('/prescriptionhistory/:id', prescriptions.getPrescriptionHistory);
 router.post('/resetpassword', customers.resetPassword);
 router.get('/confirmation/:token', customers.confirmEmail);
+router.post('/verifytoken/:token', customers.verifyToken);
 
 // get a user
 router.get('/user/:id',auth.jwt, users.getUser);
