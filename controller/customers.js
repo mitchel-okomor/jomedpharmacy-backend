@@ -133,7 +133,7 @@ updateCustomer: (req, res)=>{
 
 
 
-  resetPassword: (req, res)=>{
+confirmEmail: (req, res)=>{
     console.log(req.body);
     const customer = new Customer();
 
@@ -166,11 +166,13 @@ verifyToken:(req, res)=>{
   console.log("verify token");
 helper.verifyToken(req.params.token, (err, result)=>{
   if(err){
-    res.status(400).json({
+    res.status(401).json({
       status: "error",
+      message: "invalid or expired token",
       valid: false
     });
-  }else{
+  }
+  else{
     console.log(result);
     res.status(200).json({
       status: "success",
@@ -180,9 +182,9 @@ helper.verifyToken(req.params.token, (err, result)=>{
 });
 },
 
-  confirmEmail: (req, res)=>{
+  resetPassword: (req, res)=>{
 
-  helper.verifyToken(req.params.token, (err, result)=>{
+  helper.verifyToken(req.params.token, (err, result,userId)=>{
 if(err){
   res.status(400).json({
     status: "error",
@@ -201,9 +203,9 @@ if(err){
 
       let password = hash;
   
-      const newCustomer = new Customer(password);    
+      const newCustomer = new Customer();    
       try {
-        newCustomer.updateOne(result.customer, (result) => {
+        newCustomer.updatePassword(password, userId, (result) => {
           if (result.affectedRows > 0) {
             res.status(200).json({
               status: "success",

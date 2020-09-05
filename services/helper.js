@@ -76,15 +76,20 @@ helper.sendmail = (email, text, html)=>{
         const userId = decodedToken.customer;
         console.log(userId);
         jwt.verify(token, 'shhhhh', function(err, decoded) {
-            console.log(decoded); // bar
+          if(err){
+            callback(err);
+          }
+            console.log("jwt verify: "+decoded); // bar
     
-   callback(decoded);
+   callback(null,decoded, userId);
           });
            
     
        
       }catch(err){
-    console.log(err);
+    console.log("catch block: "+ err);
+    callback(err, null);
+
       }
       
     };

@@ -74,7 +74,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE customer SET name ='${this.name}', number='${this.number}', address='${this.address}', email='${this.email}', , password='${this.password}' WHERE id = ${id}`;
+const queryString = `UPDATE customer SET name ='${this.name}', number='${this.number}', address='${this.address}', email='${this.email}', , password='${this.password}' WHERE customer_id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;
@@ -83,8 +83,18 @@ callback(result);
 });    
 }
 
+updatePassword(password, userId, callback){
+    const queryString = `UPDATE customer SET password='${password}' WHERE customer_id = ${userId}`;
+    db.query(queryString, (err, result)=>{
+        if(err){
+            throw err;
+        }
+    callback(result);
+    });    
+    }
+
 deleteOne(id, callback){
-    const queryString = `DELETE FROM customer WHERE id = ${id}`;
+    const queryString = `DELETE FROM customer WHERE customer_id = ${id}`;
     db.query(queryString, (err, result)=>{
         if(err){
            throw err;

@@ -11,7 +11,7 @@ const products = {
 
     console.log(name, price, category, description, imagePath);
     //create a new instance of product
-    const newProduct = new Product(name, price, category, imagePath, description);
+    const newProduct = new Product(name, price, category, description, imagePath);
 
     try {
       newProduct.addOne((result) => {
@@ -102,11 +102,12 @@ delete: (req, res)=>{
 
 update: (req, res)=>{
     const name = req.body.name.trim();
-    const price = req.body.price.trim();
+    const price = req.body.price;
     const category = req.body.category.trim();
+    const description = req.body.description.trim();
 
     //create a new instance of product
-    const newProduct = new Product(name, price, category);    
+    const newProduct = new Product(name, price, category, description);    
     try {
       newProduct.updateOne(req.params.id, (result) => {
         if (result.affectedRows > 0) {

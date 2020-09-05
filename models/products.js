@@ -1,7 +1,7 @@
 const db = require('../services/db');
 
 class Products {
-    constructor(name, price, category, image, description){
+    constructor(name, price, category, description, image ){
         this.name = name;
         this.price = price;
         this.category = category;
@@ -59,7 +59,7 @@ db.query(queryString, (err, result)=>{
 }
 
 updateOne(id, callback){
-const queryString = `UPDATE product SET name ='${this.name}', price='${this.price}', category='${this.category}' WHERE product_id = ${id}`;
+const queryString = `UPDATE product SET name ='${this.name}', price='${this.price}', category='${this.category}', description='${this.description}' WHERE product_id = ${id}`;
 db.query(queryString, (err, result)=>{
     if(err){
         throw err;
