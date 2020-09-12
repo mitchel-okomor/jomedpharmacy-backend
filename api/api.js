@@ -38,7 +38,9 @@ router.patch('/customer/:id', customers.updateCustomer);
 router.delete('/customer/:id', customers.deleteCustomer);
 //login a customer
 router.post('/logincustomer', helper.populateParams, auth.logincustomer);
+
 //standing orders
+router.post('/order', orders.addOrder);
 router.get('/standingorders/:id', orders.getStandingOrders);
 router.get('/standingprescriptions/:id', prescriptions.getStandingPrescriptions);
 router.get('/orderhistory/:id', orders.getOrderHistory);

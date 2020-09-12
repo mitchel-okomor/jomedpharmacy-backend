@@ -4,6 +4,7 @@ const Order = require("../models/orders");
 //create a order
 const orders = {
   addOrder: async (req, res) => {
+    console.log(req.cart);
       const customer_id =req.customerId;
     const products = req.body.products;
     const amount = req.body.amount; 
